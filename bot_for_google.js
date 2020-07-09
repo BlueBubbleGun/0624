@@ -15,24 +15,27 @@ let btnK = document.getElementsByName("btnK")[1];
 function getRandom(min,max){
     return Math.floor(Math.random()*(max-min)+min);
 }
+
 function writeKeyword(word){
     let i = 0;
     let timerId = setInterval(()=>{
         document.getElementsByName("q")[0].value+=word[i];
         i++;
-        if (i==word.length)
+        if (i == word.length){
             clearInterval(timerId);
-        btnK.click();
+            btnK.click();
+            }
     },1000);
 }
-if(btnK != undefined)
+
+if (btnK != undefined)
     writeKeyword(keyword);
-else {
+else{
 let links = document.links;
-    for(let i=0; i<links.length; i++){
-        if(links[i].href.indexOf("xn----7sbab5aqcbiddtdj1e1g.xn--p1ai")!=-1){
+    for (let i = 0; i < links.length; i++){
+        if (links[i].href.indexOf("xn----7sbab5aqcbiddtdj1e1g.xn--p1ai")!=-1){
             links[i].click();
             break;
-    }
+        }
     }
 }
