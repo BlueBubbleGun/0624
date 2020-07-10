@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         bot_yandex
+// @name         bot_for_yandex
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  try to take over the world!
@@ -8,10 +8,10 @@
 // @grant        none
 // ==/UserScript==
 
-
 let keywords = ["Гобой","Как звучит флейта","Тромбон","Что такое валторна","Фагот","Скрипка","Виолончель"];
 let keyword = keywords[getRandom(0,keywords.length)];
-let text = document.getElementsByClassName("button")[1];
+let button = document.getElementsByClassName("mini-suggest__button")[0];
+
 function getRandom(min,max){
     return Math.floor(Math.random()*(max-min)+min);
 }
@@ -21,14 +21,14 @@ function writeKeyword(word){
     let timerId = setInterval(()=>{
         document.getElementsByName("text")[0].value += word[i];
         i++;
-        if(i == word.length){
+        if (i == word.length){
             clearInterval(timerId);
-            text.click();
+            button.click();
             }
     },1000);
 }
 
-if (text != undefined)
+if (button.tabIndex != 0)
     writeKeyword(keyword);
 else{
 let links = document.links;
