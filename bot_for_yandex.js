@@ -36,6 +36,7 @@ else if (location.hostname == "yandex.ru"){
     let flag = true;
     for (let i = 0; i < links.length; i++){
         if (links[i].href.indexOf("xn----7sbab5aqcbiddtdj1e1g.xn--p1ai")!=-1){
+            flag = false;
             links[i].removeAttribute("target");
             links[i].click();
             break;
@@ -45,7 +46,7 @@ else if (location.hostname == "yandex.ru"){
         flag = false;
         location.href = "https://yandex.ru/";
     }
-    if (flag) setTimeout(()=>nextBtn.click(),getRandom(3000,6000));
+    if (flag) setTimeout(()=>{nextBtn.click()},getRandom(3000,6000));
 }else {
     setInterval(()=>{
         if (getRandom(0,101) >= 70) location.href = 'https://yandex.ru/';
