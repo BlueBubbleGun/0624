@@ -53,7 +53,6 @@ else if (location.hostname == "yandex.ru"){
         else{
             let index = getRandom(0,links.length);
             if (links[index].href.indexOf("xn----7sbab5aqcbiddtdj1e1g.xn--p1ai")!=-1){
-                links[index].removeAttribute("target");
                 links[index].click();
             }
         }
