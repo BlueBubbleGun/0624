@@ -5,6 +5,7 @@
 // @description  try to take over the world!
 // @author       You
 // @match        https://yandex.ru/*
+// @match        https://xn----7sbab5aqcbiddtdj1e1g.xn--p1ai/*
 // @grant        none
 // ==/UserScript==
 
@@ -30,14 +31,14 @@ function writeKeyword(word){
     },1000);
 }
 
-if (searchBtn.tabIndex != 0)
+if (document.getElementsByClassName("home-logo__default")[0] != undefined)
     writeKeyword(keyword);
 else if (location.hostname == "yandex.ru"){
     let flag = true;
     for (let i = 0; i < links.length; i++){
         if (links[i].href.indexOf("xn----7sbab5aqcbiddtdj1e1g.xn--p1ai")!=-1){
-            flag = false;
             links[i].removeAttribute("target");
+            flag = false;
             links[i].click();
             break;
         }
