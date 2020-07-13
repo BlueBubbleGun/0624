@@ -12,7 +12,7 @@
 let keywords = ["Гобой","Как звучит флейта","Тромбон","Что такое валторна","Фагот","Скрипка","Виолончель"];
 let keyword = keywords[getRandom(0,keywords.length)];
 let searchBtn = document.getElementsByClassName("mini-suggest__button")[0];
-let nextBtn = document.getElementsByClassName('pager__item')[5];
+let nextBtn = document.getElementsByClassName("pager__item_kind_next")[0];
 let links = document.links;
 
 function getRandom(min,max){
@@ -43,7 +43,7 @@ else if (location.hostname == "yandex.ru"){
             break;
         }
     }
-    if (document.getElementsByClassName('pager__item_kind_page')[0].textContent > 9){
+    if (document.getElementsByClassName('pager__item_current_yes')[0].textContent > 9){
         flag = false;
         location.href = "https://yandex.ru/";
     }
