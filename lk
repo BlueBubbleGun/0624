@@ -1,0 +1,113 @@
+<?php session_start(); ?>
+<!doctype html>
+<html lang="ru">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>Личный кабинет</title>
+    <style>
+      .edit-btn{
+        color:#0000CD;
+        cursor:pointer;
+      }
+      .edit-btn:hover{
+        color:#1E90FF;
+      }
+      .edit-btn:active{
+        color:#000080;
+      }
+      .save-btn{
+        color:#32cd32;
+        cursor:pointer;
+      }
+      .save-btn:hover{
+        color:#7cfc00;
+      }
+      .save-btn:active{
+        color:#2e8b57;
+      }
+      .cancel-btn{
+        color:#b22222;
+        cursor:pointer;
+      }
+      .cancel-btn:hover{
+        color:#ff0000;
+      }
+      .cancel-btn:active{
+        color:#8b0000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <p>Имя: <span><?=$_SESSION['name']; ?></span> 
+        <span class="edit-btn">[редактировать]</span>
+        <span class="save-btn" data-item="name" hidden>[сохранить]</span>
+        <span class="cancel-btn" hidden>[отменить]</span>
+      </p>
+      <p>Фамилия: <?=$_SESSION['lastname']; ?> 
+        <span class="edit-btn">[редактировать]</span>
+        <span class="save-btn" data-item="lastname" hidden>[сохранить]</span>
+        <span class="cancel-btn" hidden>[отменить]</span>
+      </p>
+      <p>Email: <?=$_SESSION['email']; ?></p>
+      <p>ID: <?= $_SESSION['id']; ?></p>
+    </div>
+    <script>
+      let buttons = document.querySelectorAll('span[class$="-btn"]');
+      
+      for(let i = 0; i < buttons.length; i++){
+        
+      }
+      
+      
+      let editBtn = document.getElementsByClassName('edit-btn')[0];
+      let saveBtn = document.getElementsByClassName('save-btn')[0];
+      let cancelBtn = document.getElementsByClassName('cancel-btn')[0];
+      let value;
+      editBtn.addEventListener('click',()=>{
+        value = editBtn.previousElementSibling.innerText;
+        editBtn.previousElementSibling.innerHTML = `<input type="text" value="${value}">`;
+        editBtn.hidden = true;
+        saveBtn.hidden = false;
+        cancelBtn.hidden = false;
+      });
+      
+      cancelBtn.addEventListener('click',()=>{
+        editBtn.previousElementSibling.innerHTML = value;
+        editBtn.hidden = false;
+        saveBtn.hidden = true;
+        cancelBtn.hidden = true;
+      });
+      
+      saveBtn.addEventListener('click', async ()=>{
+        value = editBtn.previousElementSibling.firstElementChild.value;
+        editBtn.previousElementSibling.innerHTML = value;
+        editBtn.hidden = false;
+        saveBtn.hidden = true;
+        cancelBtn.hidden=true;
+        let item = saveBtn.dataset.item;
+        let formData = new FormData();
+        formData.append("value",value);
+        formData.append("item",item);
+        let response = await fetch('php/lk_obr.php', {
+            method: 'POST',
+            body: formData
+          });
+      });
+      
+    </script>
+    
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  </body>
+</html>
