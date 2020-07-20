@@ -61,50 +61,35 @@
       </p>
     </div>
     <script>
-/*      let buttons = document.querySelectorAll('span[class$="-btn"]');
       let editBtns = document.getElementsByClassName('edit-btn');
       let saveBtns = document.getElementsByClassName('save-btn');
       let cancelBtns = document.getElementsByClassName('cancel-btn');
-      
-      for (let i = 0; i < buttons.length; i++){
-        let editBtns = document.getElementsByClassName('edit-btn')[i];
-        let saveBtns = document.getElementsByClassName('save-btn')[i];
-        let cancelBtns = document.getElementsByClassName('cancel-btn')[i];
-        
-        for (let j = 0; j < buttons.length; j++){
-          let value;
-          editBtns[j].addEventListener('click',()=>{
-            
-          });
-        }
-      }*/
-    
-      let buttons = document.querySelectorAll('span[class$="-btn"]');
-      
-      for(let i = 0; i < buttons.length; i++){
+
+      for (let i = 0; i < editBtns.length; i++){
         let value;
-        buttons[i].addEventListener('click',()=>{
-          let button = buttons[i];
-          value = button.previousElementSibling.innerText;
-          button.previousElementSibling.innerHTML = `<input type="text" value="${value}">`;
-          button.hidden = true;
-          saveBtn = button.nextElementSibling;
-          saveBtn.hidden = false;
-          cancelBtn = saveBtn.nextElementSibling;
-          cancelBtn.hidden = false;
+        let editBtn = editBtns[i];
+
+        editBtn.addEventListener('click',()=>{
+          value = editBtn.previousElementSibling.innerText;
+          editBtn.previousElementSibling.innerHTML = `<input type="text" value="${value}">`;
+          editBtn.hidden = true;
+          saveBtns[i].hidden = false;
+          cancelBtns[i].hidden = false;
         });
         
+        let cancelBtn = cancelBtns[i];
         cancelBtn.addEventListener('click',()=>{
-          button.previousElementSibling.innerHTML = value;
-          button.hidden = false;
+          editBtn.previousElementSibling.innerHTML = value;
+          editBtn.hidden = false;
           saveBtn.hidden = true;
           cancelBtn.hidden = true;
-        });
-        
-        saveBtn.addEventListener('click', async()=>{
-          value = button.previousElementSibling.firstElementChild.value;
-          button.previousElementSibling.innerHTML = value;
-          button.hidden = false;
+      });
+      
+        let saveBtn = saveBtns[i];
+        saveBtn.addEventListener('click', async ()=>{
+          value = editBtn.previousElementSibling.firstElementChild.value;
+          editBtn.previousElementSibling.innerHTML = value;
+          editBtn.hidden = false;
           saveBtn.hidden = true;
           cancelBtn.hidden = true;
           let item = saveBtn.dataset.item;
@@ -114,47 +99,9 @@
           let response = await fetch('php/lk_obr.php', {
               method: 'POST',
               body: formData
-            });
+          });
         });
       }
-      
-    
-/*      
-      let editBtn = document.getElementsByClassName('edit-btn')[0];
-      let saveBtn = document.getElementsByClassName('save-btn')[0];
-      let cancelBtn = document.getElementsByClassName('cancel-btn')[0];
-      let value;
-      editBtn.addEventListener('click',()=>{
-        value = editBtn.previousElementSibling.innerText;
-        editBtn.previousElementSibling.innerHTML = `<input type="text" value="${value}">`;
-        editBtn.hidden = true;
-        saveBtn.hidden = false;
-        cancelBtn.hidden = false;
-      });
-      
-      cancelBtn.addEventListener('click',()=>{
-        editBtn.previousElementSibling.innerHTML = value;
-        editBtn.hidden = false;
-        saveBtn.hidden = true;
-        cancelBtn.hidden = true;
-      });
-      
-      saveBtn.addEventListener('click', async ()=>{
-        value = editBtn.previousElementSibling.firstElementChild.value;
-        editBtn.previousElementSibling.innerHTML = value;
-        editBtn.hidden = false;
-        saveBtn.hidden = true;
-        cancelBtn.hidden=true;
-        let item = saveBtn.dataset.item;
-        let formData = new FormData();
-        formData.append("value",value);
-        formData.append("item",item);
-        let response = await fetch('php/lk_obr.php', {
-            method: 'POST',
-            body: formData
-          });
-      });
-      */
     </script>
     
     
